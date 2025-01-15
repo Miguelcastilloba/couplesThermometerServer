@@ -23,7 +23,7 @@ app.post('/getCouple',async (req, res) => {
     if(couple == 404){
         res.status(404).send('Couple not found');
     }else{
-        res.status(200).send(couple);
+        res.status(200).send({partnerLevel:couple});
     }
 
 });
