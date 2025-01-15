@@ -10,7 +10,7 @@ async function getCouple(name){
             return 404;
         }else{
 
-            const partnerLevel = await bdOperation(`SELECT level FROM users WHERE couple = '${couple[0].couple}'`);
+            const partnerLevel = await bdOperation(`SELECT level FROM users WHERE couple = '${couple[0].couple}' and name != '${name}'`);
 
             if(partnerLevel.length == 0){
 
@@ -32,4 +32,22 @@ async function getCouple(name){
 
 }
 
-export { getCouple };
+async function updateMyLevel(name,level){
+
+    try{
+
+        const update = await bdOperation(`UPDATE users SET level = '${level}' WHERE name = '${name}'`);
+
+        if(update.affectedRows == 0){
+            return 404;
+        }else{
+            return 200;
+        }
+
+    }catch(error){
+        console.log(error);
+    }
+
+}
+
+export { getCouple, updateMyLevel };

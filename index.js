@@ -1,7 +1,7 @@
 import express, { json, urlencoded } from 'express';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
-import { getCouple } from './couple.js';
+import { getCouple,  updateMyLevel} from './couple.js';
 
 
 
@@ -24,6 +24,19 @@ app.post('/getCouple',async (req, res) => {
         res.status(404).send('Couple not found');
     }else{
         res.status(200).send({partnerLevel:couple});
+    }
+
+});
+
+app.post('/updateMyLevel',async (req, res) => {
+
+    const update = await updateMyLevel(req.body.name,req.body.level);
+
+    if(update != 200){
+        res.status(404).send('User not found');
+    }else{
+
+        res.status(200).send('Level updated');
     }
 
 });
